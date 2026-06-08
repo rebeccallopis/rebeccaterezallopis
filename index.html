@@ -229,6 +229,30 @@
       color: rgba(244,242,238,0.65); letter-spacing: 0.06em; line-height: 1.5;
       opacity: 0; animation: heroFadeUp 0.8s ease 0.65s forwards;
     }
+    .home-quote {
+      margin-top: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 2vw, 21px);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(244,242,238,0.72);
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      opacity: 0;
+      animation: heroFadeUp 0.8s ease 0.75s forwards;
+    }
+    .home-quote-attr {
+      display: block;
+      margin-top: 10px;
+      font-size: 11px;
+      font-style: normal;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
     .home-cta {
       margin-top: 40px; display: inline-flex; align-items: center; gap: 12px;
       font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
@@ -742,7 +766,8 @@
     <div class="home-hero-content">
       <p class="home-eyebrow">Actor · Producer · Director · Writer · Philosopher</p>
       <h1 class="home-name">Rebecca<br/>Llopis</h1>
-      <p class="home-tagline">Born in Geneva. Raised in Cannes &amp; London.<br/>Telling stories that demand to be felt.</p>
+      <p class="home-tagline">Born in Geneva. Raised in Cannes &amp; London.</p>
+      <p class="home-quote">"Stories make us more alive, more human,<br/>more courageous, more loving."<span class="home-quote-attr">— Madeleine L'Engle</span></p>
       <a class="home-cta" onclick="navigate('about')">
         Discover More <span class="arrow">→</span>
       </a>
