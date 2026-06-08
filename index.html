@@ -842,6 +842,21 @@
     </div>
 
     <div class="film-card" data-cat="acting"
+         data-title="Self Tape"
+         data-role="Actor"
+         data-year="2025"
+         data-long="Shiv Roy — Succession — monologue S1E10. A self-tape performance of Shiv Roy's pivotal monologue from the season one finale, exploring the character's fractured relationship with power, loyalty, and self-deception."
+         data-video="media/selftape-shiv-2025.mp4"
+         onclick="openFilmModal(this)">
+      <p class="film-card-cat">Acting</p>
+      <h3 class="film-card-title">Self Tape</h3>
+      <p class="film-card-role">Actor</p>
+      <p class="film-card-desc">Shiv Roy — Succession — monologue S1E10.</p>
+      <p class="film-card-year">2025</p>
+      <p class="film-card-more">View &amp; Watch →</p>
+    </div>
+
+    <div class="film-card" data-cat="acting"
          data-title="Theatre Production"
          data-role="Lead Actor — London"
          data-year="2023"
@@ -918,6 +933,9 @@
     <h2 class="film-modal-title" id="modal-title"></h2>
     <p class="film-modal-role" id="modal-role"></p>
     <div class="film-modal-divider"></div>
+    <div id="modal-video-wrap" style="display:none;margin-bottom:28px;">
+      <video id="modal-video" controls style="width:100%;border:1px solid var(--border);background:#000;max-height:360px;"></video>
+    </div>
     <p class="film-modal-body" id="modal-body"></p>
     <div class="film-modal-meta">
       <div class="film-modal-meta-item">
@@ -1313,18 +1331,32 @@
   // ── Film modal ────────────────────────────────────
   function openFilmModal(card) {
     const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-    document.getElementById('modal-cat').textContent  = cap(card.dataset.cat);
-    document.getElementById('modal-cat2').textContent = cap(card.dataset.cat);
+    document.getElementById('modal-cat').textContent   = cap(card.dataset.cat);
+    document.getElementById('modal-cat2').textContent  = cap(card.dataset.cat);
     document.getElementById('modal-title').textContent = card.dataset.title;
     document.getElementById('modal-role').textContent  = card.dataset.role;
     document.getElementById('modal-year').textContent  = card.dataset.year;
     document.getElementById('modal-body').textContent  = card.dataset.long;
+    // Video support
+    const videoWrap = document.getElementById('modal-video-wrap');
+    const video     = document.getElementById('modal-video');
+    if (card.dataset.video) {
+      video.src = card.dataset.video;
+      videoWrap.style.display = 'block';
+    } else {
+      video.src = '';
+      videoWrap.style.display = 'none';
+    }
     document.getElementById('film-modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeFilmModal(event, force) {
     if (!force && event && document.getElementById('film-modal').contains(event.target)) return;
+    // Pause video on close
+    const video = document.getElementById('modal-video');
+    video.pause();
+    video.src = '';
     document.getElementById('film-modal-overlay').classList.remove('open');
     document.body.style.overflow = '';
   }
