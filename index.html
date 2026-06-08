@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rebecca Llopis</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -210,8 +210,12 @@
     }
     .home-hero-content {
       position: relative; z-index: 2;
-      padding: 0 64px 72px;
-      max-width: 700px;
+      width: 100%;
+      padding: 0 0 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
     .home-eyebrow {
       font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
@@ -219,13 +223,15 @@
       opacity: 0; animation: heroFadeUp 0.8s ease 0.2s forwards;
     }
     .home-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(96px, 17vw, 220px);
-      font-weight: 700;
-      line-height: 0.92;
-      letter-spacing: -0.01em;
+      font-family: 'Bebas Neue', 'Playfair Display', serif;
+      font-size: clamp(80px, 24.5vw, 360px);
+      font-weight: 400;
+      line-height: 0.88;
+      letter-spacing: 0.02em;
       color: var(--white);
       margin-bottom: 28px;
+      width: 100%;
+      text-align: center;
       opacity: 0;
       animation: heroFadeUp 0.8s ease 0.45s forwards;
     }
@@ -264,6 +270,7 @@
       font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
       color: var(--gold); cursor: pointer; text-decoration: none; transition: gap 0.3s;
       opacity: 0; animation: heroFadeUp 0.8s ease 0.85s forwards;
+      align-self: center;
     }
     .home-cta:hover { gap: 18px; }
     .home-cta .arrow { font-size: 16px; }
