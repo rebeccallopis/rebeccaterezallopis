@@ -588,13 +588,9 @@
     .photoshoot-item--wide {
       aspect-ratio: 3/2;
     }
-    /* last 2 items span the full bottom row as wide */
-    .photoshoot-item:nth-child(4),
-    .photoshoot-item:nth-child(5) {
-      grid-column: span 1;
-    }
-    .photoshoot-item:nth-child(4) { grid-column: 1 / 3; }
-    .photoshoot-item:nth-child(5) { grid-column: 3 / 4; }
+    /* row 2: items 4-6 are 3 equal columns */
+    /* row 3: item 7 spans full width */
+    .photoshoot-item:nth-child(7) { grid-column: 1 / -1; aspect-ratio: 16/7; }
 
     .photoshoot-item img {
       width: 100%; height: 100%;
@@ -1040,12 +1036,20 @@
         <img src="images/photoshoots/ps-03.jpg" alt="Photoshoot 3" onerror="this.parentElement.classList.add('ps-missing')" />
         <div class="photoshoot-overlay"><span>↗</span></div>
       </div>
-      <div class="photoshoot-item photoshoot-item--wide" onclick="openPhotoModal(3)">
+      <div class="photoshoot-item" onclick="openPhotoModal(3)">
         <img src="images/photoshoots/ps-04.jpg" alt="Photoshoot 4" onerror="this.parentElement.classList.add('ps-missing')" />
         <div class="photoshoot-overlay"><span>↗</span></div>
       </div>
-      <div class="photoshoot-item photoshoot-item--wide" onclick="openPhotoModal(4)">
+      <div class="photoshoot-item" onclick="openPhotoModal(4)">
         <img src="images/photoshoots/ps-05.jpg" alt="Photoshoot 5" onerror="this.parentElement.classList.add('ps-missing')" />
+        <div class="photoshoot-overlay"><span>↗</span></div>
+      </div>
+      <div class="photoshoot-item" onclick="openPhotoModal(5)">
+        <img src="images/photoshoots/ps-06.jpg" alt="Photoshoot 6" onerror="this.parentElement.classList.add('ps-missing')" />
+        <div class="photoshoot-overlay"><span>↗</span></div>
+      </div>
+      <div class="photoshoot-item" onclick="openPhotoModal(6)">
+        <img src="images/photoshoots/ps-07.jpg" alt="Photoshoot 7" onerror="this.parentElement.classList.add('ps-missing')" />
         <div class="photoshoot-overlay"><span>↗</span></div>
       </div>
     </div>
@@ -1503,6 +1507,8 @@
     'images/photoshoots/ps-03.jpg',
     'images/photoshoots/ps-04.jpg',
     'images/photoshoots/ps-05.jpg',
+    'images/photoshoots/ps-06.jpg',
+    'images/photoshoots/ps-07.jpg',
   ];
   let psIndex = 0;
 
