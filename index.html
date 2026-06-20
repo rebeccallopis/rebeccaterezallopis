@@ -964,6 +964,8 @@
          data-year="In Development"
          data-long="A lonely young woman trapped in the abyss of her thoughts embarks on a sensory quest in search of solace and balance."
          data-pdf="resume/finding-sense-in-the-now.pdf"
+         data-link="https://www.dropbox.com/scl/fi/pka9b4qfci07flv59ebex/00074.MTS?rlkey=8q0vtth469cxdunlgdulcpt3a&st=og0pt5gh&dl=0"
+         data-link-label="Watch Performance"
          onclick="openFilmModal(this)">
       <p class="film-card-cat">Writing</p>
       <h3 class="film-card-title">Finding Sense in the Now</h3>
@@ -1081,6 +1083,9 @@
     <p class="film-modal-body" id="modal-body"></p>
     <div id="modal-pdf-wrap" style="display:none;margin-top:24px;">
       <a id="modal-pdf-link" href="" target="_blank" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:2px;">Read Screenplay →</a>
+    </div>
+    <div id="modal-link-wrap" style="display:none;margin-top:16px;">
+      <a id="modal-link" href="" target="_blank" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:2px;"></a>
     </div>
     <div class="film-modal-meta">
       <div class="film-modal-meta-item">
@@ -1563,6 +1568,16 @@
     } else {
       pdfLink.href = '';
       pdfWrap.style.display = 'none';
+    }
+    const linkWrap = document.getElementById('modal-link-wrap');
+    const linkEl = document.getElementById('modal-link');
+    if (card.dataset.link) {
+      linkEl.href = card.dataset.link;
+      linkEl.textContent = (card.dataset.linkLabel || 'View Link') + ' →';
+      linkWrap.style.display = 'block';
+    } else {
+      linkEl.href = '';
+      linkWrap.style.display = 'none';
     }
     document.getElementById('film-modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
