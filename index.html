@@ -153,8 +153,15 @@
     }
 
     /* ─── PAGE CONTAINER ─── */
-    .page { display: none; min-height: 100vh; padding-top: var(--nav-h); }
-    .page.active { display: block; }
+    .page { display: block; min-height: 100vh; padding-top: var(--nav-h); }
+    /* section divider — star horizon between pages */
+    .star-divide {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold) 30%, rgba(201,168,76,0.3) 70%, transparent);
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
 
     /* ─── SCROLL REVEAL ─── */
     .reveal {
@@ -669,7 +676,7 @@
     }
 
     /* ─── TRANSITIONS ─── */
-    .page { animation: fadeIn 0.4s ease forwards; }
+    .page { animation: none; }
     @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
     /* ─── RESPONSIVE ─── */
@@ -757,7 +764,7 @@
 <!-- ═══════════════════════════════════════
      HOME PAGE
 ═══════════════════════════════════════ -->
-<section id="home" class="page active">
+<section id="home" class="page">
   <div class="home-hero">
     <img class="home-hero-img" src="images/portrait.jpg" alt="Rebecca Llopis"
          onerror="this.style.display='none'; document.getElementById('hero-placeholder').style.display='flex';" />
@@ -804,6 +811,7 @@
   </footer>
 </section>
 
+<div class="star-divide"></div>
 <!-- ═══════════════════════════════════════
      ABOUT PAGE
 ═══════════════════════════════════════ -->
@@ -907,6 +915,7 @@
   </footer>
 </section>
 
+<div class="star-divide"></div>
 <!-- ═══════════════════════════════════════
      FILM PAGE
 ═══════════════════════════════════════ -->
@@ -1116,6 +1125,7 @@
   </div>
 </div>
 
+<div class="star-divide"></div>
 <!-- ═══════════════════════════════════════
      BLOG PAGE
 ═══════════════════════════════════════ -->
@@ -1192,6 +1202,7 @@
   </footer>
 </section>
 
+<div class="star-divide"></div>
 <!-- ═══════════════════════════════════════
      MISC PAGE
 ═══════════════════════════════════════ -->
@@ -1342,6 +1353,7 @@
   <span class="lightbox-caption" id="lightbox-caption"></span>
 </div>
 
+<div class="star-divide"></div>
 <!-- ═══════════════════════════════════════
      CONTACT PAGE
 ═══════════════════════════════════════ -->
@@ -1434,28 +1446,44 @@
 <script>
   // ── Page navigation ──────────────────────────────
   function navigate(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const target = document.getElementById(pageId);
     if (target) {
-      target.classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(checkReveal, 80);
+      target.scrollIntoView({ behavior: 'smooth' });
     }
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-    const navLink = document.getElementById('nav-' + pageId);
-    if (navLink) navLink.classList.add('active');
     history.pushState(null, '', '#' + pageId);
   }
+
+  // On load, scroll to hash if present
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const target = document.getElementById(hash);
+      if (target) target.scrollIntoView();
+    }
+    checkReveal();
+  });
 
   window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '') || 'home';
     navigate(hash);
   });
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const hash = window.location.hash.replace('#', '') || 'home';
-    navigate(hash);
-    checkReveal();
+  // Active nav link via IntersectionObserver
+  const navSections = ['home','about','film','blog','misc','contact'];
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        const navLink = document.getElementById('nav-' + id);
+        if (navLink) navLink.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+
+  navSections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
   });
 
   document.querySelectorAll('.nav-links a, .nav-logo').forEach(el => {
@@ -1480,7 +1508,10 @@
 
   function mobileNavigate(pageId) {
     toggleMenu();
-    setTimeout(() => navigate(pageId), 250);
+    setTimeout(() => {
+      const target = document.getElementById(pageId);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
   }
 
   // ── Film tab filter ───────────────────────────────
@@ -1692,9 +1723,7 @@
 
   // ── Scroll reveal ─────────────────────────────────
   function checkReveal() {
-    const page = document.querySelector('.page.active');
-    if (!page) return;
-    page.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
       if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('visible');
     });
   }
